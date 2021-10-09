@@ -16,4 +16,4 @@ var renderedItems = DMI.modctx.itemdata.map(
 );
 var renderedItemsJSON = JSON.stringify( renderedItems, null, 2)
 var itemsBlob = new Blob( [renderedItemsJSON], {type: "text/plan;charset=utf-8"} );
-saveAs( itemsBlob, 'items.txt' );
+saveAs( itemsBlob, 'items.json' );
