@@ -1,0 +1,8 @@
+@@ -219,6 +219,7 @@
+ 	this.superClass.call(this, 'item', modctx.itemdata, columns); //superconstructor
+ 
+ 	$(this.domsel+' .grid-container').css('width', 530);//set table width
++	$(this.domsel+' .grid-container').css('height',1e5);//illwiki-hover: set height very tall in order to load all grid rows into DOM
+ 
+ 
+ 	//in closure scope
