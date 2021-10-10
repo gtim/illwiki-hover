@@ -1,0 +1,7 @@
+base   illwikihover
+author Tim
+email  tim@gurka.se
+date   2020-01-23
+name   illwikihover plugin
+desc   description
+url    https://illwiki.com/
