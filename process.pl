@@ -10,8 +10,8 @@ use JSON;
 my $OUT_DIR = 'dist';
 
 #process( 'item', $OUT_DIR, 'build/inspector-html/items.json' );
-process( 'spell', $OUT_DIR, 'build/inspector-html/spells.json' );
-#process( 'unit', $OUT_DIR, 'units.json' );
+#process( 'spell', $OUT_DIR, 'build/inspector-html/spells.json' );
+process( 'unit', $OUT_DIR, 'build/inspector-html/units.json' );
 
 sub process {
 	my ( $type, $OUT_DIR, $in_fn ) = @_;
@@ -26,16 +26,16 @@ sub process {
 	for my $html ( @spells_html ) {
 		$html =~ s@^\s*<div.*?>(.*)</div>\s*$@$1@;
 
+		# find ID 
+		$html =~ m@<div class="overlay-header" title="$type id:(\d+)">@ or die "could not find ID";
+		my $id = $1;
+
 		# find name
 		
 		$html =~ m@<div class="h2replace">(.*?)</div>@ or die "could not find name";
 		my $name = $1;
-		#$name =~ s/â€œ//g;
+		$name =~ s/\x{201c}//g; # remove quotation marks
 		die "unexpected char in name '$name'" unless $name =~ /^[a-zA-Zö '-]+$/;
-
-		# find ID 
-		$html =~ m@<div class="overlay-header" title="$type id:(\d+)">@ or die "could not find ID";
-		my $id = $1;
 
 
 		printf "%4d: %s\n", $id, $name;
