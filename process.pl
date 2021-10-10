@@ -27,8 +27,10 @@ sub process {
 		$html =~ s@^\s*<div.*?>(.*)</div>\s*$@$1@;
 
 		# find ID 
-		$html =~ m@<div class="overlay-header" title="$type id:(\d+)">@ or die "could not find ID";
+		
+		$html =~ m@<div class="overlay-header" title="$type id:([\d\.]+)">@ or die "could not find ID";
 		my $id = $1;
+		next if ( $type eq 'unit' && $id =~ m/\./ ); # skip units with ID on the form 123.01 (what are these?)
 
 		# find name
 		
@@ -69,7 +71,11 @@ sub process {
 				my $desc = read_file( $fn ) or die $!;
 				$html =~ s@(<div class="overlay-descr.*?>)(</div>)@$1$desc$2@;
 			} else {
-				die "unitdescr missing: $fn";
+				if ( grep { $_ == $id } qw/601 955 1347 1454 2141 2142 2144 2146 2147 2194 2195 2598 2607/ ) {
+					say "      missing description for $name as expected";
+				} else {
+					die "      unitdescr missing: $fn";
+				}
 			}
 		}
 
