@@ -9,8 +9,8 @@ use JSON;
 
 my $OUT_DIR = 'dist';
 
-process( 'item', $OUT_DIR, 'build/inspector-html/items.json' );
-#process( 'spell', $OUT_DIR, 'build/inspector-html/spells.json' );
+#process( 'item', $OUT_DIR, 'build/inspector-html/items.json' );
+process( 'spell', $OUT_DIR, 'build/inspector-html/spells.json' );
 #process( 'unit', $OUT_DIR, 'units.json' );
 
 sub process {
@@ -86,13 +86,17 @@ sub process {
 sub proc_add_descr {
 	my ( $name, $html_old, $desc_folder, $also_dets ) = @_;
 	my $html = $html_old;
-	$name =~ s/toAshes/toashes/; # dom inspector bug?
+
+
+	$name =~ s/AshestoAshes/Ashestoashes/;
 	$name =~ s/K.nhelm/Knhelm/;
 	my $desc_fn = $desc_folder . $name . '.txt' ;
-	if ( $name eq 'HolyThing' ) {
-		warn "      skipping description for $name (hard-coded)";
-	} elsif ( ! -f $desc_fn ) {
-		die "descr not found: $desc_fn";
+	if ( ! -f $desc_fn ) {
+		if ( grep { $_ eq $name } qw/HolyThing Burning Cleansing Grip MemoriesofDeath Bewilderment Halt FieryDeath Drowning Petrification LightningDeath Paralyzation Death Exhaustion Tangles Bleeding Chestwound CaveCollapse/ ) {
+			say "      missing description for $name as expected";
+		} else {
+			die "description for $name not found: $desc_fn";
+		}
 	} else {
 		my $desc = read_file( $desc_fn ) or die $!;
 		$html =~ s@(<div class="overlay-descr.*?>)(</div>)@$1$desc$2@;
