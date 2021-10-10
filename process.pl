@@ -7,7 +7,7 @@ use warnings;
 use File::Slurp;
 use JSON;
 
-my $OUT_DIR = 'dist';
+my $OUT_DIR = 'dist/illwikihover';
 
 #process( 'item', $OUT_DIR, 'build/inspector-html/items.json' );
 #process( 'spell', $OUT_DIR, 'build/inspector-html/spells.json' );
