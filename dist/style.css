@@ -1,0 +1,87 @@
+span.illwikihover_link {
+	text-decoration:underline;
+	text-decoration:underline dashed green;
+}
+
+
+p.illwikihover_popup_x {
+	text-align:right;
+}
+div.illwikihover_popup {
+	border:4px solid #ac8400;
+	border-radius:10px;
+	box-shadow:5px 5px 5px #888888;
+	position:absolute;
+	width:325px;
+	font-size:8pt;
+	line-height:1;
+	background:#ded0b7;
+}
+div.illwikihover_popup .overlay-header {
+	background:#282f36;
+	color:#fff;
+}
+div.illwikihover_popup .overlay-header p {
+	margin:0;
+}
+div.illwikihover_popup .h2replace {
+	margin-bottom:0.4em;
+	font-size:120%;
+	font-weight:bold;
+}
+div.illwikihover_popup .overlay-header,
+div.illwikihover_popup .overlay-main,
+div.illwikihover_popup .overlay-footer {
+	padding:0.4em;
+}
+div.illwikihover_popup .overlay-table {
+	border-spacing:0px;
+	border-collapse:collapse;
+	margin-bottom:0.4em;
+	border:none;
+}
+div.illwikihover_popup .overlay-table th,
+div.illwikihover_popup .overlay-table td {
+	background:none;
+	border:none;
+	font-weight:normal;
+	padding: 0em 0.3em;
+	white-space:nowrap;
+	vertical-align:top;
+}
+div.illwikihover_popup .overlay-table th:first-letter {
+	text-transform:capitalize;
+}
+div.illwikihover_popup .overlay-table td.widecell {
+	white-space:normal;
+}
+div.illwikihover_popup .overlay-details {
+	background:#faffa8;
+}
+
+/* item */
+div.illwikihover_popup .overlay-header div.item-image {
+	float:right;
+	height:36px;
+	width:36px;
+	background-position:center;
+	background-repeat:no-repeat;
+}
+
+
+/* removed elements */
+
+div.illwikihover_popup .internal-inline,
+div.illwikihover_popup .modding-row,
+div.illwikihover_popup .modding-inline,
+div.illwikihover_popup .id,
+div.illwikihover_popup .hidden-block,
+div.illwikihover_popup .hidden-row {
+	display:none;
+}
+div.illwikihover_popup tr.mapmove,
+div.illwikihover_popup tr.rpcost,
+div.illwikihover_popup tr.gcost
+{
+	display:none;
+}
