@@ -30,7 +30,9 @@ saveAs( overlaysToBlob(itemOverlays), 'items.json' );
 
 // Spells
 
-var spellOverlays = DMI.modctx.spelldata.map(
+var spellOverlays = DMI.modctx.spelldata.filter(
+    function(spell){ return spell.school != -1; } // behind-the-scenes spells
+).map(
     spell => DMI.MSpell.renderOverlay(spell)
 );
 saveAs( overlaysToBlob(spellOverlays), 'spells.json' );
