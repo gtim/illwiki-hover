@@ -11,9 +11,23 @@
 
 // Find, HTML-render and download items
 
+function arrayToJSONBlob( rowsArray ) {
+    var rowsJSON = JSON.stringify( rowsArray, null, 2)
+    var rowsBlob = new Blob( [rowsJSON], {type: "text/plan;charset=utf-8"} );
+    return rowsBlob;
+}
+
 var renderedItems = DMI.modctx.itemdata.map(
     item => DMI.MItem.renderOverlay(item)
 );
-var renderedItemsJSON = JSON.stringify( renderedItems, null, 2)
-var itemsBlob = new Blob( [renderedItemsJSON], {type: "text/plan;charset=utf-8"} );
-saveAs( itemsBlob, 'items.json' );
+saveAs( arrayToJSONBlob(renderedItems), 'items.json' );
+
+var renderedSpells = DMI.modctx.spelldata.map(
+    spell => DMI.MSpell.renderOverlay(spell)
+);
+saveAs( arrayToJSONBlob(renderedSpells), 'spells.json' );
+
+var renderedUnits = DMI.modctx.unitdata.map(
+    unit => DMI.MUnit.renderOverlay(unit)
+);
+saveAs( arrayToJSONBlob(renderedUnits), 'units.json' );
