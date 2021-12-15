@@ -75,9 +75,9 @@ class syntax_plugin_illwikihover extends DokuWiki_Syntax_Plugin
 	$item_ids = json_decode( file_get_contents( dirname(__FILE__) . '/item_nametoid_hash.json'), true );
 	$unit_ids = json_decode( file_get_contents( dirname(__FILE__) . '/unit_nametoid_hash.json'), true );
 	if ( key_exists( $name, $spell_ids ) ) {
-		$data[0] = sprintf( '<span class="illwikihover_link" data-spellid="%d" data-pinned="false">%s</span>', $spell_ids{$name}, $name );
+		$data[0] = sprintf( '<span class="illwikihover_link" data-spellid="%d" data-pinned="false">%s</span>', $spell_ids[$name], $name );
 	} elseif ( key_exists( $name, $item_ids ) ) {
-		$data[0] = sprintf( '<span class="illwikihover_link" data-itemid="%d" data-pinned="false">%s</span>', $item_ids{$name}, $name );
+		$data[0] = sprintf( '<span class="illwikihover_link" data-itemid="%d" data-pinned="false">%s</span>', $item_ids[$name], $name );
 	} elseif ( key_exists( $name, $unit_ids ) ) {
 		if ( $supplied_id ) {
 			if ( in_array( $supplied_id, $unit_ids{$name} ) ) {
@@ -86,7 +86,7 @@ class syntax_plugin_illwikihover extends DokuWiki_Syntax_Plugin
 				$data[0] = $name;
 			}
 		} else {
-			$data[0] = sprintf( '<span class="illwikihover_link" data-unitid="%d" data-pinned="false">%s</span>', $unit_ids{$name}[0], $name );
+			$data[0] = sprintf( '<span class="illwikihover_link" data-unitid="%d" data-pinned="false">%s</span>', $unit_ids[$name][0], $name );
 		}
 	} else {
 		$data[0] = $name;
