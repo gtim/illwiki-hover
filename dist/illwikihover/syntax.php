@@ -80,7 +80,7 @@ class syntax_plugin_illwikihover extends DokuWiki_Syntax_Plugin
 		$data[0] = sprintf( '<span class="illwikihover_link" data-itemid="%d" data-pinned="false">%s</span>', $item_ids[$name], $name );
 	} elseif ( key_exists( $name, $unit_ids ) ) {
 		if ( $supplied_id ) {
-			if ( in_array( $supplied_id, $unit_ids{$name} ) ) {
+			if ( in_array( $supplied_id, $unit_ids[$name] ) ) {
 				$data[0] = sprintf( '<span class="illwikihover_link" data-unitid="%d" data-pinned="false">%s</span>', $supplied_id, $name );
 			} else {
 				$data[0] = $name;
