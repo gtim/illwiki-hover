@@ -44,7 +44,7 @@ class syntax_plugin_illwikihover extends DokuWiki_Syntax_Plugin
      */
     public function connectTo($mode)
     {
-        $this->Lexer->addSpecialPattern('\?\?[a-zA-Z \'-]+?(?:#\d+)?\?\?', $mode, 'plugin_illwikihover');
+        $this->Lexer->addSpecialPattern('\?\?[a-zA-Zö \'-]+?(?:#\d+)?\?\?', $mode, 'plugin_illwikihover');
     }
 
 //    public function postConnect()
