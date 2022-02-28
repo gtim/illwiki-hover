@@ -74,9 +74,9 @@ class syntax_plugin_illwikihover extends DokuWiki_Syntax_Plugin
 	$spell_ids = json_decode( file_get_contents( dirname(__FILE__) . '/spell_nametoid_hash.json'), true );
 	$item_ids = json_decode( file_get_contents( dirname(__FILE__) . '/item_nametoid_hash.json'), true );
 	$unit_ids = json_decode( file_get_contents( dirname(__FILE__) . '/unit_nametoid_hash.json'), true );
-	if ( key_exists( $name, $spell_ids ) ) {
+	if ( key_exists( $name, $spell_ids ) && ! $supplied_id ) {
 		$data[0] = sprintf( '<span class="illwikihover_link" data-spellid="%d" data-pinned="false">%s</span>', $spell_ids[$name], $name );
-	} elseif ( key_exists( $name, $item_ids ) ) {
+	} elseif ( key_exists( $name, $item_ids ) && ! $supplied_id ) {
 		$data[0] = sprintf( '<span class="illwikihover_link" data-itemid="%d" data-pinned="false">%s</span>', $item_ids[$name], $name );
 	} elseif ( key_exists( $name, $unit_ids ) ) {
 		if ( $supplied_id ) {
