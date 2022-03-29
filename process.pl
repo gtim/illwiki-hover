@@ -92,6 +92,7 @@ sub proc_add_descr {
 
 
 	$name =~ s/AshestoAshes/Ashestoashes/;
+	$name =~ s/CalltheWormThatWalks/CalltheWormthatWalks/;
 	$name =~ s/K.nhelm/Knhelm/;
 	my $desc_fn = $desc_folder . $name . '.txt' ;
 	if ( ! -f $desc_fn ) {
