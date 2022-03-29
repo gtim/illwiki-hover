@@ -71,9 +71,9 @@ class syntax_plugin_illwikihover extends DokuWiki_Syntax_Plugin
 	$match_a = explode( '#', $match_f );
 	$name = $match_a[0];
 	$supplied_id = ( isset($match_a[1]) ? $match_a[1] : 0 );
-	$spell_ids = json_decode( file_get_contents( dirname(__FILE__) . '/spell_nametoid_hash.json'), true );
-	$item_ids  = json_decode( file_get_contents( dirname(__FILE__) . '/item_nametoid_hash.json'),  true );
-	$unit_ids  = json_decode( file_get_contents( dirname(__FILE__) . '/unit_nametoid_hash.json'),  true );
+	$spell_ids = json_decode( file_get_contents( dirname(__FILE__) . '/spell_nametoid_hash.json'), true, 512, JSON_THROW_ON_ERROR );
+	$item_ids  = json_decode( file_get_contents( dirname(__FILE__) . '/item_nametoid_hash.json'),  true, 512, JSON_THROW_ON_ERROR );
+	$unit_ids  = json_decode( file_get_contents( dirname(__FILE__) . '/unit_nametoid_hash.json'),  true, 512, JSON_THROW_ON_ERROR );
 
 	if ( ! $supplied_id ) { 
 		if (       key_exists( $name, $spell_ids ) ) {

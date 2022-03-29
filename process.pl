@@ -9,9 +9,9 @@ use JSON;
 
 my $OUT_DIR = 'dist/illwikihover';
 
-#process( 'item', $OUT_DIR, 'build/inspector-html/items.json' );
+process( 'item', $OUT_DIR, 'build/inspector-html/items.json' );
 process( 'spell', $OUT_DIR, 'build/inspector-html/spells.json' );
-#process( 'unit', $OUT_DIR, 'build/inspector-html/units.json' );
+process( 'unit', $OUT_DIR, 'build/inspector-html/units.json' );
 
 sub process {
 	my ( $type, $OUT_DIR, $in_fn ) = @_;
@@ -82,7 +82,10 @@ sub process {
 	# write name-to-id hash
 	my $hash_fn = sprintf( '%s/%s_nametoid_hash.json', $OUT_DIR, $type );
 	say "writing name-to-id map to $hash_fn";
-	write_file( $hash_fn, encode_json( \%name_to_id ) ) or die $!;
+	write_file(
+		$hash_fn,
+		JSON->new->pretty->canonical->utf8->encode( \%name_to_id )
+	) or die $!;
 }
 
 
