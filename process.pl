@@ -10,8 +10,8 @@ use JSON;
 my $OUT_DIR = 'dist/illwikihover';
 
 #process( 'item', $OUT_DIR, 'build/inspector-html/items.json' );
-#process( 'spell', $OUT_DIR, 'build/inspector-html/spells.json' );
-process( 'unit', $OUT_DIR, 'build/inspector-html/units.json' );
+process( 'spell', $OUT_DIR, 'build/inspector-html/spells.json' );
+#process( 'unit', $OUT_DIR, 'build/inspector-html/units.json' );
 
 sub process {
 	my ( $type, $OUT_DIR, $in_fn ) = @_;
@@ -46,14 +46,10 @@ sub process {
 		# clean
 		$html =~ s/<input.*?>//; # unpin button
 		$html =~ s@<div class="overlay-wiki-link.*?</div>@@;
-		if ( $type eq 'unit' ) {# multiple with same name
-			$name_to_id{$name} //= [];
-			push @{$name_to_id{$name}}, $id;
-		} else {
-			$name_to_id{$name} = $id;
-		}
+		$name_to_id{$name} //= [];
+		push @{$name_to_id{$name}}, $id;
 
-		# update item image
+		# update item/unit image
 		if ( $type eq 'item' ) {
 			$html =~ s@src="[^"]*?(item\d+\.png)"@src="/dom5/lib/plugins/illwikihover/img_item/$1"@;
 		} elsif ( $type eq 'unit' ) {
@@ -83,7 +79,7 @@ sub process {
 		# write
 		write_file( sprintf('%s/%s/%d.htm',$OUT_DIR,$type,$id), $html ) or die $!;
 	}
-	# write spell name-to-id hash
+	# write name-to-id hash
 	my $hash_fn = sprintf( '%s/%s_nametoid_hash.json', $OUT_DIR, $type );
 	say "writing name-to-id map to $hash_fn";
 	write_file( $hash_fn, encode_json( \%name_to_id ) ) or die $!;

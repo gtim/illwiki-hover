@@ -72,24 +72,38 @@ class syntax_plugin_illwikihover extends DokuWiki_Syntax_Plugin
 	$name = $match_a[0];
 	$supplied_id = ( isset($match_a[1]) ? $match_a[1] : 0 );
 	$spell_ids = json_decode( file_get_contents( dirname(__FILE__) . '/spell_nametoid_hash.json'), true );
-	$item_ids = json_decode( file_get_contents( dirname(__FILE__) . '/item_nametoid_hash.json'), true );
-	$unit_ids = json_decode( file_get_contents( dirname(__FILE__) . '/unit_nametoid_hash.json'), true );
-	if ( key_exists( $name, $spell_ids ) && ! $supplied_id ) {
-		$data[0] = sprintf( '<span class="illwikihover_link" data-spellid="%d" data-pinned="false">%s</span>', $spell_ids[$name], $name );
-	} elseif ( key_exists( $name, $item_ids ) && ! $supplied_id ) {
-		$data[0] = sprintf( '<span class="illwikihover_link" data-itemid="%d" data-pinned="false">%s</span>', $item_ids[$name], $name );
-	} elseif ( key_exists( $name, $unit_ids ) ) {
-		if ( $supplied_id ) {
-			if ( in_array( $supplied_id, $unit_ids[$name] ) ) {
-				$data[0] = sprintf( '<span class="illwikihover_link" data-unitid="%d" data-pinned="false">%s</span>', $supplied_id, $name );
-			} else {
-				$data[0] = $name;
-			}
+	$item_ids  = json_decode( file_get_contents( dirname(__FILE__) . '/item_nametoid_hash.json'),  true );
+	$unit_ids  = json_decode( file_get_contents( dirname(__FILE__) . '/unit_nametoid_hash.json'),  true );
+
+	if ( ! $supplied_id ) { 
+		if (       key_exists( $name, $spell_ids ) ) {
+			# Spell
+			$data[0] = sprintf( '<span class="illwikihover_link" data-spellid="%d" data-pinned="false">%s</span>', $spell_ids[$name][0], $name );
+		} elseif ( key_exists( $name, $item_ids  ) ) {
+			# Item
+			$data[0] = sprintf( '<span class="illwikihover_link" data-itemid="%d"  data-pinned="false">%s</span>', $item_ids[$name][0],  $name );
+		} elseif ( key_exists( $name, $unit_ids  ) ) {
+			# Unit
+			$data[0] = sprintf( '<span class="illwikihover_link" data-unitid="%d"  data-pinned="false">%s</span>', $unit_ids[$name][0],  $name );
 		} else {
-			$data[0] = sprintf( '<span class="illwikihover_link" data-unitid="%d" data-pinned="false">%s</span>', $unit_ids[$name][0], $name );
+			# Unknown
+			$data[0] = $name;
 		}
 	} else {
-		$data[0] = $name;
+		# ID supplied
+		if (       is_array( $spell_ids[$name] ) && in_array( $supplied_id, $spell_ids[$name] ) ) {
+			# Unit
+			$data[0] = sprintf( '<span class="illwikihover_link" data-spellid="%d" data-pinned="false">%s</span>', $supplied_id, $name );
+		} elseif ( is_array( $item_ids[$name]  ) && in_array( $supplied_id, $item_ids[$name]  ) ) {
+			# Item
+			$data[0] = sprintf( '<span class="illwikihover_link" data-itemid="%d"  data-pinned="false">%s</span>', $supplied_id, $name );
+		} elseif ( is_array( $unit_ids[$name]  ) && in_array( $supplied_id, $unit_ids[$name]  ) ) {
+			# Unit
+			$data[0] = sprintf( '<span class="illwikihover_link" data-unitid="%d"  data-pinned="false">%s</span>', $supplied_id, $name );
+		} else {
+			# Unknown
+			$data[0] = $name;
+		}
 	}
 
         return $data;
