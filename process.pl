@@ -20,7 +20,8 @@ sub process {
 	mkdir $OUT_DIR unless -d $OUT_DIR;
 	mkdir "$OUT_DIR/$type" unless -d "$OUT_DIR/$type";
 
-	my @spells_html = @{ decode_json( read_file($in_fn) ) };
+	my $json_dump = read_file( $in_fn );
+	my @spells_html = @{ decode_json( $json_dump ) };
 
 	my %name_to_id = ();
 	for my $html ( @spells_html ) {
