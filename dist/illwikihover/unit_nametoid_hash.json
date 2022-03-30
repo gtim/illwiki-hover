@@ -1138,6 +1138,9 @@
    "Black Sorcerer" : [
       "894"
    ],
+   "Black Sorceress" : [
+      344
+   ],
    "Black Templar" : [
       738
    ],
@@ -7223,7 +7226,6 @@
    ],
    "Sorceress" : [
       343,
-      344,
       "891"
    ],
    "Soulless" : [
