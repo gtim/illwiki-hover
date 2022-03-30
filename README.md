@@ -1,13 +1,21 @@
 # illwiki-hover
 
-## Build instruction
+## Build instructions
 
-1. Open the dom 5 inspector, paste content of `scrape-inspector.js` into dev console (F12) and save the resulting three JSON files in `build/inspector-html`
+Clone repo:
 
-2. Make sure inspector submodule in directory is up-to-date
+    $ git clone https://github.com/gtim/illwiki-hover.git
+    $ cd illwiki-hover
 
-3.  `perl copy-sprites.pl`
+Run a local dom5 inspector:
 
-4. `perl process.pl`
+    $ git submodule --init
+    $ cd dom5inspector
+    $ python3 -m http.server
 
-5. This should have (re-)generated the `dist/illwikihover` folder, except for a couple static files that are already there. Copy the entire folder into the dokuwiki plugin folder.
+Run the processing scripts in another terminal while the local inspector is running:
+    
+    $ node dump-inspector-overlays.js # edit host address if not running on illwiki server
+    $ perl copy-sprites.pl
+    $ perl process.pl
+    $ ./deploy.sh # edit paths if not running default arch dokuwiki install
